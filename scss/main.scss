@@ -1,0 +1,195 @@
+// global
+
+html,
+body,
+main {
+    width: 100%;
+    height: 100%;
+}
+
+
+main {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.left-part-button, .right-part-button {
+    will-change: top, left;
+    z-index: 50;
+    position: fixed;
+    top: 50%;
+     
+    transition: cubic-bezier(0.165, 0.84, 0.44, 1) left 1s, cubic-bezier(0.165, 0.84, 0.44, 1) top 1s, ;
+
+}
+
+
+@media all and (max-width: '1200px') {
+    .slide-buttons {
+        display: flex;
+        justify-content: center;
+        column-gap: 20%;
+        .left-part-button, .right-part-button {
+
+            position: initial !important;
+        }
+
+    }
+}
+
+.progress{
+     font-size: 100px;
+     color: rgb(237, 237, 237);
+position: absolute;
+bottom: 20px;
+right: 30px;
+}
+
+.left-part-button  {
+    left: 20%;
+}
+
+.right-part-button  {
+    right:  20%;
+}
+
+button {
+    background-color: transparent;
+    border: none;
+    outline: none;
+    padding: 10px;
+    span {
+         font-size: 100px;
+        color: rgb(237, 237, 237);
+        line-height: 55px;
+    }
+}
+
+.left-side, .right-side {
+    position: fixed;
+    top: 0;
+    height: 100%;
+    z-index: 10;
+    width: 30%;
+}
+
+.left-side {
+    left: 0;
+}
+
+.right-side {
+    right: 0;
+}
+
+.noise-texture {
+    background-image: url(../images/402107790_STATIC_NOISE_400.gif);
+    background-position: 0 0;
+    background-repeat: repeat;
+    background-size: 200px 200px;
+    height: 100%;
+    left: 0;
+    mix-blend-mode: hard-light;
+    opacity: .15;
+    pointer-events: none;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 50
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    user-select: none;
+    -webkit-user-drag: none;
+}
+
+body {
+
+    background-color: rgb(12, 12, 12);
+
+    @media all and (max-width: '525px') {
+        section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .center {
+            margin: 80px 0 20px !important;
+        }
+    }
+ 
+    @media all and (max-width: '320px') {
+        & {
+            width: 329px;
+        }
+    }
+}
+
+img {
+    width: 100%;
+}
+
+.center {
+    margin: 80px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.slide-wrapper {
+
+    width: 500px;
+    position: relative;
+    height: 500px;
+    overflow: hidden;
+
+    .slide-inner {
+        display: flex;
+
+        height: 100%;
+        position: absolute;
+    }
+}
+
+.slide-image {
+    display: flex;
+    flex-direction: column;
+    width: 500px;
+
+    height: 500px;
+    position: relative;
+
+    .slide-image-part {
+        height: 100px;
+        position: absolute;
+        width: 500px;
+        overflow: hidden;
+        left: 0;
+        transition: cubic-bezier(0.165, 0.84, 0.44, 1) left 1.5s;
+        $transition: 5;
+        $items: 4;
+        $transform: 100;
+        will-change: left;
+
+        @for $i from 1 through $items {
+            &:nth-child(#{$i+1}) img {
+                transform: translateY(#{-$i * $transform + "px"});
+            }
+        }
+
+        @for $i from 1 through $transition {
+            &:nth-child(#{$i}) {
+                top: #{$i * $transform  - 100 + "px"};
+                transition-delay: #{$i/3}s;
+            }
+        }
+
+    }
+}
